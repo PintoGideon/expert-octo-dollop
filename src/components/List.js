@@ -6,14 +6,24 @@ import Card from './Card';
 class List extends Component {
   state = { showOptions: false };
 
-  toggleOptions = () => {};
+  toggleOptions = () => {
+    this.setState(state => ({ showOptions: !state.showOptions }));
+  };
 
-  createCard = () => {};
+  removeList = () => {
+    this.props.onRemoveList(this.props.list.id);
+  };
 
-  removeList = () => {};
+  removeCard = () => {};
 
   render() {
-    const { list = {} } = this.props;
+    const {
+      list,
+      lists,
+      onRemoveCard,
+      onCreateCard,
+      onListChange,
+    } = this.props;
     const { showOptions } = this.state;
 
     return (
@@ -21,7 +31,7 @@ class List extends Component {
         <h2>{list.title}</h2>
         {showOptions && (
           <div className="List-options">
-            <CreateCard onCreateCard={this.createCard} />
+            <CreateCard onCreateCard={onCreateCard} list={list.id} />
             <button className="List-remove danger" onClick={this.removeList}>
               Remove List
             </button>
@@ -33,9 +43,18 @@ class List extends Component {
         >
           Toggle Options
         </button>
+
         <div>
-          {/* Iterate over cards here. */}
-          <Card />
+          {list.cards.map(card => (
+            <Card
+              key={card.id}
+              card={card}
+              onRemoveCard={onRemoveCard}
+              onListChange={onListChange}
+              listId={list.id}
+              lists={lists}
+            />
+          ))}
         </div>
       </article>
     );
