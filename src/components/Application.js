@@ -1,12 +1,13 @@
 import React, { Component } from 'react';
 import CreateList from './CreateList';
 import Lists from './Lists';
-
+import Users from './Users';
 import defaultState from '../default-state.json';
 
 class Application extends Component {
   state = {
     lists: defaultState.lists,
+    users: defaultState.users,
   };
 
   createList = ({ title }) => {
@@ -78,15 +79,41 @@ class Application extends Component {
       }
       return { ...list, cards: newCards };
     });
-    
+
     this.setState({ lists });
   };
 
+  /*********Code for users*************** */
+
+  createUser = user => {
+    let { users } = this.state;
+
+    const newUser = {
+      id: Date.now().toString(),
+      name: user.name,
+      email: user.email,
+    };
+
+    this.setState({ users: [...users, newUser] });
+  };
+
+  updateUser = ({ updatedUser }) => {
+    this.setState(({ users }) => {
+      return {
+        users: users.map(user => {
+          return user.id === updatedUser.id ? updatedUser : user;
+        }),
+      };
+    });
+  };
+
   render() {
-    const { lists } = this.state;
+    const { lists, users } = this.state;
     return (
       <main className="Application">
-        <div>{/* Users will go here! */}</div>
+        <div>
+          <Users users={users} onCreateUser={this.createUser} />
+        </div>
         <section>
           <CreateList onCreateList={this.createList} />
           <Lists
