@@ -107,6 +107,25 @@ class Application extends Component {
     });
   };
 
+  assignCard = (cardId, userId) => {
+    let { users, lists } = this.state;
+
+    lists = lists.map(list => {
+      if (!list.cards.find(card => cardId === card.id)) return list;
+
+      const cards = list.cards.map(card => {
+        if (card.id === cardId) {
+          if (!userId) return { ...card, assignedTo: '' };
+          return { ...card, assignedTo: userId };
+        }
+        return card;
+      });
+
+      return { ...lists, cards };
+    });
+    this.setState({ lists });
+  };
+
   render() {
     const { lists, users } = this.state;
     return (
@@ -118,10 +137,12 @@ class Application extends Component {
           <CreateList onCreateList={this.createList} />
           <Lists
             lists={lists}
+            users={users}
             onCreateCard={this.createCard}
             onRemoveList={this.removeList}
             onRemoveCard={this.removeCard}
             onListChange={this.moveCardToList}
+            onAssignCard={this.assignCard}
           />
         </section>
       </main>
