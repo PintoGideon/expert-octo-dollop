@@ -5,4 +5,11 @@ import Application from './components/Application';
 
 import './index.scss';
 
-ReactDOM.render(<Application />, document.getElementById('root'));
+import { UsersProvider } from './components/UsersContext';
+
+ReactDOM.render(
+  <UsersProvider>
+    <Application />
+  </UsersProvider>,
+  document.getElementById('root'),
+);
