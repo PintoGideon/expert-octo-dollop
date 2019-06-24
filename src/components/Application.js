@@ -7,7 +7,6 @@ import defaultState from '../default-state.json';
 class Application extends Component {
   state = {
     lists: defaultState.lists,
-    users: defaultState.users,
   };
 
   createList = ({ title }) => {
@@ -83,30 +82,6 @@ class Application extends Component {
     this.setState({ lists });
   };
 
-  /*********Code for users*************** */
-
-  createUser = user => {
-    let { users } = this.state;
-
-    const newUser = {
-      id: Date.now().toString(),
-      name: user.name,
-      email: user.email,
-    };
-
-    this.setState({ users: [...users, newUser] });
-  };
-
-  updateUser = ({ updatedUser }) => {
-    this.setState(({ users }) => {
-      return {
-        users: users.map(user => {
-          return user.id === updatedUser.id ? updatedUser : user;
-        }),
-      };
-    });
-  };
-
   assignCard = (cardId, userId) => {
     let { users, lists } = this.state;
 
@@ -127,17 +102,16 @@ class Application extends Component {
   };
 
   render() {
-    const { lists, users } = this.state;
+    const { lists } = this.state;
     return (
       <main className="Application">
         <div>
-          <Users users={users} onCreateUser={this.createUser} />
+          <Users />
         </div>
         <section>
           <CreateList onCreateList={this.createList} />
           <Lists
             lists={lists}
-            users={users}
             onCreateCard={this.createCard}
             onRemoveList={this.removeList}
             onRemoveCard={this.removeCard}

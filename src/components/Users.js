@@ -1,4 +1,5 @@
 import React from 'react';
+import withUsers from './withUsers';
 
 import CreateUser from './CreateUser';
 import User from './User';
@@ -15,4 +16,4 @@ const Users = ({ users, onCreateUser, onUpdateUser }) => {
   );
 };
 
-export default Users;
+export default withUsers(Users);
