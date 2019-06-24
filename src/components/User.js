@@ -7,13 +7,13 @@ const createProfileImageUrl = ({ email }) => {
 };
 
 class User extends Component {
-  handleChange = (event) => {
+  handleChange = event => {
     const { user, onUpdateUser } = this.props;
     if (onUpdateUser) onUpdateUser({ ...user, name: event.target.value });
   };
 
   render() {
-    const { user = {} } = this.props;
+    const { user } = this.props;
     const profileImage = createProfileImageUrl(user);
 
     return (

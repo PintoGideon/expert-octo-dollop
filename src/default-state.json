@@ -38,5 +38,18 @@
       "id": "1558196570597",
       "title": "Done"
     }
+  ],
+  "users":[
+    {
+      "id":"1",
+      "name":"Gidi",
+      "email":"gidi@gmail.com"
+    },
+    {
+      "id":"2",
+      "name":"Aaron",
+      "email":"aaron@email.com"
+    }
+
   ]
 }
