@@ -37,7 +37,7 @@ class Card extends Component {
           <div className="Card-options">
             <select
               className="Card-move"
-              onChange={this.handleChange}
+              onChange={this.handleChange} 
               value={listId}
             >
               {lists.map(list => (
